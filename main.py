@@ -26,6 +26,7 @@ def premier_code():
 
 
 def deuxieme_code():
+    bool isDetected = False
     cap = cv2.VideoCapture(0)
     width = int(cap.get(3))
     marge = 70
@@ -50,11 +51,15 @@ def deuxieme_code():
         for x, y, x2, y2 in tab_face:
             if not index or (x - tab_face[index - 1][0] > marge or y - tab_face[index - 1][1] > marge):
                 cv2.rectangle(frame, (x, y), (x2, y2), (0, 0, 255), 2)
+                isDetected = True
             index += 1
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-        fps = cv2.getTickFrequency() / (cv2.getTickCount() - tidemark)
-        cv2.putText(frame, "FPS: {:05.2f}".format(fps), (10, 30), cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 0), 2)
+        if(isDetected == True)
+            print("Dectecté")
+        else
+            print("personne")
+
         cv2.imshow('video', frame)
     cap.release()
     cv2.destroyAllWindows()
