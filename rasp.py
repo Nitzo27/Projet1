@@ -12,7 +12,7 @@ haut_du_corps = cv2.CascadeClassifier("./haarcascade_upperbody.xml")
 bas_du_corps = cv2.CascadeClassifier("./haarcascade_lowerbody.xml")
 face_cascade = cv2.CascadeClassifier("./haarcascade_frontalface_alt2.xml")
 profile_cascade = cv2.CascadeClassifier("./haarcascade_profileface.xml")
-
+position = [0, 0, 0, 0]
 
 
 def tf_mini() :
@@ -36,7 +36,6 @@ def deuxieme_code():
     cap = cv2.VideoCapture(0)
     width = int(cap.get(3))
     marge = 70
-    position = [0,0,0,0]
 
     while True:
         isDetected = False
@@ -67,12 +66,10 @@ def deuxieme_code():
             position = [x,y,x2,y2]
 
         if isDetected == True:
-            print('position humain ' + position[::])
+            print(position[::])
             print("Dectecté")
-            return position
         if isDetected == False:
             print("personne")
-
 
     cap.release()
 
@@ -100,8 +97,14 @@ def use_servo(angle):
     pwm.stop()
     GPIO.cleanup()
 
+def convertir_pos(pos):
+    pos1 = 0
+    pos = position
+    pos[3:] = pos1
+    pos1 /= 180 
+    return pos1
 
-angle_to_percent (0)
+
 deuxieme_code()
-
-
+angle_to_percent(0)
+use_servo(convertir_pos(position))
