@@ -1,0 +1,15 @@
+
+
+
+
+
+
+
+<launch>
+
+
+
+<node pkg="Projet_74" type="lidar.py" name="lidar" />
+
+
+</launch>
